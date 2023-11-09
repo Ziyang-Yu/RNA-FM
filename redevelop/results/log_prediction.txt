@@ -1,0 +1,8 @@
+2023-11-09 02:29:52,733 prediction INFO: Using 1 GPUS, GPU ID: 0
+2023-11-09 02:29:52,733 prediction INFO: Loaded configuration file pretrained/ss_prediction.yml
+2023-11-09 02:29:52,733 prediction INFO: Model File:pretrained/Models/SS/RNA-FM-ResNet_PDB-All.pth
+2023-11-09 02:29:52,733 prediction INFO: Batch Size:1
+2023-11-09 02:29:52,733 prediction INFO: Threshold:0.33993712
+2023-11-09 02:29:52,733 prediction INFO: Prediction Dataset: ./data/ourdata/train.fasta
+2023-11-09 02:29:54,863 prediction.inference INFO: Enter inferencing for Custom set
+2023-11-09 02:33:28,228 prediction.inference INFO: Finish Prediction

@@ -1,0 +1,28 @@
+model.backbone:  RNABertModel(
+  (embed_tokens): Embedding(25, 640, padding_idx=1)
+  (layers): ModuleList(
+    (0-11): 12 x TransformerLayer(
+      (self_attn): MultiheadAttention(
+        (k_proj): Linear(in_features=640, out_features=640, bias=True)
+        (v_proj): Linear(in_features=640, out_features=640, bias=True)
+        (q_proj): Linear(in_features=640, out_features=640, bias=True)
+        (out_proj): Linear(in_features=640, out_features=640, bias=True)
+      )
+      (self_attn_layer_norm): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+      (fc1): Linear(in_features=640, out_features=5120, bias=True)
+      (fc2): Linear(in_features=5120, out_features=640, bias=True)
+      (final_layer_norm): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (contact_head): ContactPredictionHead(
+    (regression): Linear(in_features=240, out_features=1, bias=True)
+    (activation): Sigmoid()
+  )
+  (embed_positions): LearnedPositionalEmbedding(1026, 640, padding_idx=1)
+  (emb_layer_norm_before): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+  (emb_layer_norm_after): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+  (lm_head): RobertaLMHead(
+    (dense): Linear(in_features=640, out_features=640, bias=True)
+    (layer_norm): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+  )
+)
