@@ -1,5 +1,7 @@
 .idea
 __pycache__/
 .vscode/
+build/
 redevelop/pretrained/Models/
 rna_fm.egg-info/
+recover_experiments/
