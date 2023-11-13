@@ -4,4 +4,4 @@ __pycache__/
 build/
 redevelop/pretrained/Models/
 rna_fm.egg-info/
-recover_experiments/
+recover_experiments/e2efold_data
