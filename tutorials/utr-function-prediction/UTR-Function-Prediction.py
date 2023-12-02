@@ -373,7 +373,7 @@ def collate_fn(batch):
 # In[7]:
 
 
-root_path = "tutorials/utr-function-prediction/data/"
+root_path = "data/"
 train_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="train")
 val_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="valid")
 test_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="test")
