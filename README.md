@@ -8,5 +8,5 @@ python setup.py develop
 
 ```
 cd tutorials/utr-function-prediction 
-python UTR-Function-Prediction.py
+python UTR-Function-Prediction.py > output.log
 ```
