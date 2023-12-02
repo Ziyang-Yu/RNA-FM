@@ -211,7 +211,7 @@ def weights_init(m):
 
 
 device="cuda"   # "cpu"
-os.environ['CUDA_VISIBLE_DEVICES'] = sys.argv[2] #"1"
+# os.environ['CUDA_VISIBLE_DEVICES'] = sys.argv[2] #"1"
 #backbone, alphabet = fm.pretrained.esm1b_rna_t12("../../redevelop/pretrained/RNA-FM_pretrained.pth")
 #backbone, alphabet = fm.pretrained.esm1b_rna_t12("/home/chenjiayang/.cache/torch/hub/checkpoints/RNA-FM_pretrained.pth")
 #backbone, alphabet = fm.pretrained.esm1b_rna_t12("/mnt/nas/user/chenjiayang/RNA-FM-github-final-model/RNA-FM_pretrained.pth")
@@ -228,7 +228,7 @@ print(backbone)
 
 task="rgs"
 arch="cnn"
-input_items = sys.argv[1].split("_")   #["seq","emb-rnafm"]   # ["seq"], ["emb-rnafm"], ["seq","emb-rnafm"]
+input_items = ["emb-rnafm"]   # ["seq"], ["emb-rnafm"]
 model_name = arch.upper() + "_" + "_".join(input_items) 
 utr_func_predictor = Human5PrimeUTRPredictor(
     alphabet, task=task, arch=arch, input_types=input_items    
@@ -373,7 +373,7 @@ def collate_fn(batch):
 # In[7]:
 
 
-root_path = "./"
+root_path = "tutorials/utr-function-prediction/data/"
 train_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="train")
 val_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="valid")
 test_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="test")
@@ -443,7 +443,7 @@ def model_eval(data_loader, i_epoch, set_name="unknown"):
 # In[9]:
 
 
-n_epoches = 50
+n_epoches = 200
 best_mse = 10
 best_epoch = 0
 
