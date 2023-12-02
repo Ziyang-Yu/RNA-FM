@@ -210,7 +210,7 @@ def weights_init(m):
 # In[3]:
 
 
-device="cuda"   # "cpu"
+device="cuda" if torch.cuda.is_available() else "cpu"   # "cpu"
 # os.environ['CUDA_VISIBLE_DEVICES'] = sys.argv[2] #"1"
 #backbone, alphabet = fm.pretrained.esm1b_rna_t12("../../redevelop/pretrained/RNA-FM_pretrained.pth")
 #backbone, alphabet = fm.pretrained.esm1b_rna_t12("/home/chenjiayang/.cache/torch/hub/checkpoints/RNA-FM_pretrained.pth")
@@ -373,7 +373,7 @@ def collate_fn(batch):
 # In[7]:
 
 
-root_path = "data/"
+root_path = "tutorials/utr-function-prediction/"
 train_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="train")
 val_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="valid")
 test_set =  Human_5Prime_UTR_VarLength(root=root_path, set_name="test")
