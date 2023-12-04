@@ -482,7 +482,7 @@ for i_e in range(1, n_epoches+1):
     if random_mse < best_mse:
         best_epoch = i_e
         best_mse = random_mse
-        torch.save(utr_func_predictor.state_dict(), "result/{}_best_utr_predictor.pth".format(model_name))
+        torch.save(utr_func_predictor.state_dict(), "tutorials/utr-function-prediction/result/{}_best_utr_predictor.pth".format(model_name))
     print("--------- Model: {}, Best Epoch {}, Best MSE {:.3f}".format(model_name, best_epoch, best_mse))
 
 
