@@ -442,7 +442,7 @@ def model_eval(data_loader, i_epoch, set_name="unknown"):
 
 # In[9]:
 
-utr_func_predictor.load_state_dict(torch.load("tutorials/utr-function-prediction/result/{}_best_utr_predictor.pth".format(model_name), map_location=torch.device('cpu')))
+utr_func_predictor.load_state_dict(torch.load("tutorials/utr-function-prediction/result/{}_best_utr_predictor.pth".format(model_name)))
 
 n_epoches = 1
 best_mse = 10
