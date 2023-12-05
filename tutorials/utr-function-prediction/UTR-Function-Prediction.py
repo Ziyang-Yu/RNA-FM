@@ -442,40 +442,48 @@ def model_eval(data_loader, i_epoch, set_name="unknown"):
 
 # In[9]:
 
+utr_func_predictor.load_state_dict(torch.load("tutorials/utr-function-prediction/result/{}_best_utr_predictor.pth".format(model_name), map_location=torch.device('cpu')))
 
-n_epoches = 200
+n_epoches = 1
 best_mse = 10
 best_epoch = 0
+
+
+import sys
+
+# for i in range(0, len(sys.argv)):
+#     print('argument:', i, 'value:', sys.argv[i])
 
 for i_e in range(1, n_epoches+1):
     all_losses = []
     n_sample = 0
     n_iter = len(train_loader)
 
-    pbar = tqdm(train_loader, desc="Epoch {}, Train Set - MSE loss: {}".format(i_e, "NaN"), ncols=100)
-    for index, (seq_strs, tokens, labels) in enumerate(pbar):
-        backbone.eval()
-        utr_func_predictor.train()
-        tokens = tokens.to(device)
-        labels = labels.to(device)      
+    if sys.argv[1] == "train":
+        pbar = tqdm(train_loader, desc="Epoch {}, Train Set - MSE loss: {}".format(i_e, "NaN"), ncols=100)
+        for index, (seq_strs, tokens, labels) in enumerate(pbar):
+            backbone.eval()
+            utr_func_predictor.train()
+            tokens = tokens.to(device)
+            labels = labels.to(device)      
+            
+            inputs = {}
+            results = {}  
+            if "emb-rnafm" in  input_items:            
+                with torch.no_grad():
+                    results = backbone(tokens, need_head_weights=False, repr_layers=[12], return_contacts=False)            
+                inputs["emb-rnafm"] = results["representations"][12]                
+            results["rl"] = utr_func_predictor(tokens, inputs)
+            losses = criterion(results["rl"], labels)
+            batch_loss = losses.mean()
+            batch_loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
         
-        inputs = {}
-        results = {}  
-        if "emb-rnafm" in  input_items:            
-            with torch.no_grad():
-                results = backbone(tokens, need_head_weights=False, repr_layers=[12], return_contacts=False)            
-            inputs["emb-rnafm"] = results["representations"][12]                
-        results["rl"] = utr_func_predictor(tokens, inputs)
-        losses = criterion(results["rl"], labels)
-        batch_loss = losses.mean()
-        batch_loss.backward()
-        optimizer.step()
-        optimizer.zero_grad()
-    
-        all_losses.append(losses.detach().cpu())
-        current_avg_loss = torch.cat(all_losses, dim=0).mean()
-        
-        pbar.set_description("Epoch {}, Train Set - MSE loss: {:.3f}".format(i_e, current_avg_loss))
+            all_losses.append(losses.detach().cpu())
+            current_avg_loss = torch.cat(all_losses, dim=0).mean()
+            
+            pbar.set_description("Epoch {}, Train Set - MSE loss: {:.3f}".format(i_e, current_avg_loss))
     
     random_mse = model_eval(val_loader, i_e, set_name="Random")
     
